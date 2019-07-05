@@ -2,17 +2,18 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    
+
     <parent>
         <groupId>com.h3xstream.retirejs</groupId>
         <artifactId>retirejs-root-pom</artifactId>
         <version>3.0.1</version>
     </parent>
-    
+
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.h3xstream.retirejs</groupId>
     <artifactId>retirejs-core</artifactId>
+    <version>3.0.1.hdiv</version>
 
     <dependencies>
 
@@ -51,4 +52,57 @@
         </dependency>
 
     </dependencies>
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>nexus</id>
+            <url>https://artifacts.hdivsecurity.com/nexus/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>nexus</id>
+            <url>https://artifacts.hdivsecurity.com/nexus/content/repositories/releases</url>
+        </repository>
+    </distributionManagement>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>net.orfjackal.retrolambda</groupId>
+                <artifactId>retrolambda-maven-plugin</artifactId>
+                <version>2.5.1</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>process-main</goal>
+                            <goal>process-test</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <target>1.6</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>animal-sniffer-maven-plugin</artifactId>
+                <version>1.18</version>
+                <executions>
+                    <execution>
+                      <id>signature-check</id>
+                      <phase>verify</phase>
+                      <goals>
+                          <goal>check</goal>
+                      </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <signature>
+                        <groupId>org.codehaus.mojo.signature</groupId>
+                        <artifactId>java16</artifactId>
+                        <version>1.0</version>
+                    </signature>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
